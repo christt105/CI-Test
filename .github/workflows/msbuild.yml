@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '6.0.x'
         
       - name: Build solution
-        run: msbuild ./PhysicsGame.sln
+        run: msbuild ./PhysicsGame.sln /p:Configuration=Release
 
       - name: Create artifact directory
         run: mkdir artifact
