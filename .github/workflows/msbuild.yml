@@ -25,6 +25,9 @@ jobs:
       - name: Copy the executable to the artifact directory
         run: copy ./Build/PhysicsGame/Release/Win32/PhysicsGame.exe artifact/
 
+      - name: Copy Assets folder to the artifact directory
+        run: xcopy /e /i ./Assets/ artifact/Assets/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
