@@ -33,3 +33,14 @@ jobs:
         with:
           name: my-app
           path: artifact/
+          
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: "my-app"
+            
