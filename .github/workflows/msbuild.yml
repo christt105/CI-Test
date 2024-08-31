@@ -2,8 +2,8 @@ name: Build
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+    - main
 
 jobs:
   build:
@@ -39,14 +39,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: my-app
       - name: Create a Release
         uses: elgohr/Github-Release-Action@v5
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ github.ref }}
-            
+          title: "Release v0.0.1-${{ github.sha }}"
+          tag: "v0.0.1-${{ github.sha }}"
+        
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: my-app  
