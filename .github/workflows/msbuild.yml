@@ -53,4 +53,15 @@ jobs:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4.1.8
         with:
-          name: my-app  
+          name: my-app
+          path: artifact/
+          
+      - run: ls
+          
+      - name: GitHub Releases
+        uses: fnkr/github-action-ghr@v1.3
+        env:
+          GHR_PATH: artifact/
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
+          
