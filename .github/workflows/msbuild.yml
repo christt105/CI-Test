@@ -2,8 +2,8 @@ name: Build
 
 on:
   push:
-    branches:
-    - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
@@ -47,8 +47,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: "Release v0.0.1-${{ github.sha }}"
-          tag: "v0.0.1-${{ github.sha }}"
+          title: "Release ${{ github.ref_name }}"
+          tag: ${{ github.ref_name }}
         
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4
@@ -56,11 +56,12 @@ jobs:
           name: my-app
           path: artifact/
           
-      - run: ls
+      - run: ls artifact/
           
       - name: GitHub Releases
         uses: fnkr/github-action-ghr@v1.3
         env:
+          GHR_COMPRESS: zip
           GHR_PATH: artifact/
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
