@@ -22,11 +22,12 @@ jobs:
       - name: Create artifact directory
         run: mkdir artifact/PhysicsGame/
 
-      - name: Copy the executable to the artifact directory
-        run: copy ./Build/PhysicsGame/Release/Win32/PhysicsGame.exe artifact/PhysicsGame/
-
-      - name: Copy Assets folder to the artifact directory
-        run: robocopy ./Assets/ ./artifact/PhysicsGame/Assets/ /e; if ($lastexitcode -lt 8) { $global:LASTEXITCODE = $null }
+      - name: Copy build files to the artifact directory
+        run: |
+          copy ./Build/PhysicsGame/Release/Win32/PhysicsGame.exe ./artifact/PhysicsGame/
+          robocopy ./Assets/ ./artifact/PhysicsGame/Assets/ /e; if ($lastexitcode -lt 8) { $global:LASTEXITCODE = $null }
+          copy ./README.md ./artifact/PhysicsGame/
+          copy ./LICENSE ./artifact/PhysicsGame/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
